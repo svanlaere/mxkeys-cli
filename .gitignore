@@ -1,0 +1,15 @@
+# Lazarus / Free Pascal build output
+/lib/
+/backup/
+
+*.o
+*.ppu
+*.a
+*.compiled
+
+# Compiled executables
+/mxkeys
+/mxkeys.exe
+
+# Lazarus local session
+*.lps
