@@ -6,6 +6,8 @@
 *.ppu
 *.a
 *.compiled
+link*.res
+ppas.bat
 
 # Compiled executables
 /mxkeys

@@ -10,7 +10,8 @@ uses
   mxkeys_notify;
 
 procedure ShowStatus(
-  const Info: TMXDeviceInfo
+  const Info: TMXDeviceInfo;
+  const Verbose: Boolean
 );
 begin
   if Info.Name <> '' then
@@ -32,15 +33,18 @@ begin
     )
   );
 
-  WriteLn(
-    'Slot: ',
-    Info.Slot
-  );
+  if Verbose then
+  begin
+    WriteLn(
+      'Slot: ',
+      Info.Slot
+    );
 
-  WriteLn(
-    'Transport: ',
-    TransportDescription
-  );
+    WriteLn(
+      'Transport: ',
+      TransportDescription
+    );
+  end;
 end;
 
 function HasParameter(
@@ -127,6 +131,7 @@ var
   ErrorText: string;
   ShowStatusRequested: Boolean;
   TestNotificationRequested: Boolean;
+  VerboseRequested: Boolean;
   DiagnosticMode: Boolean;
 begin
   Info := Default(TMXDeviceInfo);
@@ -150,9 +155,15 @@ begin
       '--test-notification'
     );
 
+  VerboseRequested :=
+    HasParameter(
+      '--verbose'
+    );
+
   DiagnosticMode :=
     ShowStatusRequested or
-    TestNotificationRequested;
+    TestNotificationRequested or
+    VerboseRequested;
 
   if not TransportOpen(
     ErrorText
@@ -186,7 +197,8 @@ begin
 
     if ShowStatusRequested then
       ShowStatus(
-        Info
+        Info,
+        VerboseRequested
       );
 
     if TestNotificationRequested then
