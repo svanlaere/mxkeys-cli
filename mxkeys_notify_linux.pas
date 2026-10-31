@@ -57,15 +57,10 @@ begin
 
     if Process.ExitStatus <> 0 then
     begin
-      ErrorText := Trim(
-        Process.Stderr.ReadAnsiString
+      ErrorText := Format(
+        'notify-send exited with status %d.',
+        [Process.ExitStatus]
       );
-
-      if ErrorText = '' then
-        ErrorText := Format(
-          'notify-send exited with status %d.',
-          [Process.ExitStatus]
-        );
 
       Exit;
     end;
